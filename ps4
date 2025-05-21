@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+:root {
+  --rosa-principal: #ED145B;
+  --fundo-gradiente: linear-gradient(120deg, #000000 0%, #1C1C1C 100%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  background: var(--fundo-gradiente);
+  color: #ffffff;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.interface {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--rosa-principal);
+  text-transform: uppercase;
+}
+
+#campo-texto {
+  width: 100%;
+  height: 200px;
+  padding: 1rem;
+  font-size: 1.5rem;
+  border-radius: 8px;
+  border: none;
+  resize: none;
+}
+
+#campo-texto::placeholder {
+  color: #999;
+}
+
+#botao-extrair {
+  background-color: var(--rosa-principal);
+  color: #000;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#botao-extrair:hover {
+  opacity: 0.9;
+}
+
+#saida-resultado {
+  font-size: 1.7rem;
+  color: var(--rosa-principal);
+  text-align: center;
+  word-wrap: break-word;
+}
