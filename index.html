@@ -1,24 +1,185 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Detector de Palavras</title>
-  <link rel="stylesheet" href="assets/estilo.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Extrator Profissa de Palavras-Chave</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+  :root {
+    --rosa: #ED145B;
+    --bg-gradient: linear-gradient(120deg, #0D0D0D 0%, #222 100%);
+    --text-light: #EEE;
+    --text-muted: #AAA;
+    --shadow: rgba(237, 20, 91, 0.4);
+  }
+
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  body {
+    background: var(--bg-gradient);
+    color: var(--text-light);
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+
+  .container {
+    background: #111;
+    padding: 2.5rem 3rem;
+    border-radius: 15px;
+    box-shadow: 0 0 15px var(--shadow);
+    max-width: 900px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+  }
+
+  h1 {
+    color: var(--rosa);
+    text-align: center;
+    font-weight: 600;
+    font-size: 2.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  textarea {
+    width: 100%;
+    height: 200px;
+    background: #222;
+    color: var(--text-light);
+    font-size: 1.3rem;
+    padding: 1rem 1.2rem;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+  }
+
+  textarea:focus {
+    outline: none;
+    border-color: var(--rosa);
+    box-shadow: 0 0 8px var(--rosa);
+  }
+
+  button {
+    background: var(--rosa);
+    border: none;
+    color: #111;
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding: 1rem 2.4rem;
+    border-radius: 10px;
+    cursor: pointer;
+    align-self: center;
+    transition: background 0.3s ease;
+    box-shadow: 0 5px 8px var(--shadow);
+  }
+
+  button:hover {
+    background: #c31149;
+  }
+
+  #resultado {
+    margin-top: 1rem;
+    color: var(--rosa);
+    font-size: 1.7rem;
+    font-weight: 600;
+    text-align: center;
+    word-break: break-word;
+    min-height: 50px;
+  }
+
+  @media (max-width: 600px) {
+    .container {
+      padding: 1.5rem 1.5rem;
+    }
+    h1 {
+      font-size: 2rem;
+    }
+    textarea {
+      font-size: 1.1rem;
+      height: 150px;
+    }
+    button {
+      font-size: 1.2rem;
+      padding: 0.9rem 2rem;
+    }
+    #resultado {
+      font-size: 1.4rem;
+    }
+  }
+</style>
 </head>
 <body>
   <main class="container">
-    <h1>Detector de Palavras</h1>
-    <p class="descricao">Cole ou escreva seu texto abaixo para analisar as palavras mais relevantes.</p>
-    <textarea id="entrada" placeholder="Ex: A tecnologia está mudando o mundo rapidamente..."></textarea>
-    <button id="detectar">Detectar Palavras-Chave</button>
+    <h1>Extrator Profissa de Palavras-Chave</h1>
+    <textarea id="campo-texto" placeholder="Cole ou digite seu texto aqui..."></textarea>
+    <button id="btn-analisar">Analisar</button>
     <section id="resultado"></section>
   </main>
 
-  <footer>
-    <p>💡 Projeto criado por João - 2025</p>
-  </footer>
+  <script>
+    const IGNORADAS = new Set([
+      "que", "para", "com", "não", "uma", "por", "mais", "dos", "como", "mas",
+      "foi", "ele", "das", "tem", "seu", "sua", "ser", "quando", "muito", "está",
+      "também", "pelo", "pela", "até", "isso", "ela", "entre", "era", "depois",
+      "sem", "mesmo", "aos", "ter", "seus", "quem", "nas", "esse", "eles", "estão",
+      "você", "tinha", "foram", "essa", "num", "nem", "suas", "meu", "minha", "têm",
+      "numa", "pelos", "elas", "havia", "seja", "qual", "será", "nós", "tenho", "lhe",
+      "deles", "essas", "esses", "pelas", "este", "fosse", "dele", "vocês", "vos",
+      "lhes", "meus", "minhas", "teu", "tua", "teus", "tuas", "nosso", "nossa",
+      "nossos", "nossas", "dela", "delas", "esta", "estes", "estas", "aquele",
+      "aquela", "aqueles", "aquelas", "isto", "aquilo", "estou", "estamos", "estive",
+      "esteve", "estivemos", "estiveram", "estava", "estávamos", "estavam", "e", "ou",
+      "onde", "embora", "apesar", "porque", "enquanto", "contudo", "entretanto",
+      "portanto", "além", "antes", "todavia", "inclusive", "diante", "sobre", "quanto",
+      "apenas", "desde", "uma vez", "segundo", "junto"
+    ]);
 
-  <script type="module" src="assets/codigo.js"></script>
+    const botao = document.querySelector('#btn-analisar');
+    const resultado = document.querySelector('#resultado');
+    const textoInput = document.querySelector('#campo-texto');
+
+    botao.addEventListener('click', () => {
+      const texto = textoInput.value.trim();
+      if (!texto) {
+        resultado.textContent = "Digite ou cole um texto para analisar.";
+        return;
+      }
+      const palavras = extrairPalavrasChave(texto);
+      resultado.textContent = palavras.length ? palavras.join(', ') : "Nenhuma palavra-chave encontrada.";
+    });
+
+    function extrairPalavrasChave(texto) {
+      // Pega só palavras com letras, ignora acentos
+      const lista = texto.match(/\b\p{L}+\b/gu)?.map(p => p.toLowerCase()) || [];
+      const validas = lista.filter(p => !IGNORADAS.has(p) && p.length > 2);
+      const contagem = contarPalavras(validas);
+      return ordenarPorFrequencia(contagem).slice(0, 10);
+    }
+
+    function contarPalavras(lista) {
+      const mapa = {};
+      for (const p of lista) {
+        mapa[p] = (mapa[p] || 0) + 1;
+      }
+      return mapa;
+    }
+
+    function ordenarPorFrequencia(mapa) {
+      return Object.entries(mapa)
+        .sort((a,b) => b[1] - a[1])
+        .map(entry => entry[0]);
+    }
+  </script>
 </body>
 </html>
