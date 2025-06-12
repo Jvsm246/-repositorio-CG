@@ -1,92 +1,84 @@
-/* Fonte Montserrat importada pro visual clean e moderno */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
 :root {
-  --cor-primaria: #c0392b; /* vermelho profissional */
-  --cor-fundo: #121212; /* fundo escuro pra descanso visual */
-  --cor-texto: #ecf0f1; /* quase branco */
-  --cor-destaque: #e74c3c; /* destaque forte */
+  --fundo: #0e0e0e;
+  --rosa: #ff2e7e;
+  --cinza: #cccccc;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 body {
-  background-color: var(--cor-fundo);
-  color: var(--cor-texto);
-  height: 100vh;
+  background: var(--fundo);
+  color: white;
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 2rem;
 }
 
 .container {
   max-width: 800px;
-  width: 100%;
-  background-color: #1e1e1e;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+  margin: auto;
   display: flex;
   flex-direction: column;
-  gap: 1.8rem;
+  gap: 1.5rem;
 }
 
 h1 {
-  font-weight: 600;
-  font-size: 2.4rem;
+  font-size: 2.5rem;
+  color: var(--rosa);
   text-align: center;
-  color: var(--cor-primaria);
+  letter-spacing: 1px;
 }
 
-.highlight {
-  color: var(--cor-destaque);
+.descricao {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--cinza);
 }
 
-.input-area textarea {
+textarea {
   width: 100%;
   height: 180px;
   padding: 1rem;
-  border-radius: 10px;
+  font-size: 1rem;
   border: none;
-  font-size: 1.3rem;
+  border-radius: 8px;
   resize: vertical;
-  background-color: #2c2c2c;
-  color: var(--cor-texto);
-  box-shadow: inset 2px 2px 8px rgba(0,0,0,0.7);
 }
 
-.input-area textarea::placeholder {
-  color: #bbb;
-  font-style: italic;
-}
-
-button#analyze-btn {
-  margin-top: 1rem;
-  padding: 0.85rem 1.8rem;
-  background-color: var(--cor-primaria);
-  color: var(--cor-fundo);
+button {
+  padding: 0.8rem 1.2rem;
+  font-size: 1.2rem;
+  background: var(--rosa);
+  color: black;
   border: none;
-  font-weight: 600;
-  font-size: 1.4rem;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
+  transition: 0.3s;
 }
 
-button#analyze-btn:hover {
-  background-color: var(--cor-destaque);
+button:hover {
+  opacity: 0.9;
 }
 
-.output-area {
+#resultado {
+  font-size: 1.3rem;
+  color: var(--rosa);
   text-align: center;
-  font-size: 1.5rem;
-  color: var(--cor-primaria);
-  min-height: 3rem;
-  word-wrap: break-word;
+  word-break: break-word;
+}
+
+footer {
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 0.9rem;
+  color: var(--cinza);
 }

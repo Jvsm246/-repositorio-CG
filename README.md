@@ -1,42 +1,20 @@
-# Extrator de Palavras-Chave Profissional 🚀
+# Detector de Palavras-Chave 🧠
 
-Projeto moderno para extrair as palavras mais relevantes de um texto em português, filtrando palavras comuns que não agregam valor.
+Um app leve e estiloso que analisa textos e extrai as palavras mais significativas, ignorando palavras comuns.
 
----
+## 💡 Recursos
 
-## Funcionalidades
+- Interface moderna e responsiva
+- Tema escuro com destaque em rosa
+- Filtro inteligente de palavras irrelevantes
+- 100% em HTML, CSS e JS puro
 
-- Interface clean, responsiva e com design escuro profissional
-- Filtro customizado de palavras irrelevantes para uma análise precisa
-- Código modular e organizado com ES Modules
-- Feedback ao usuário para entrada vazia ou inválida
+## 🚀 Como usar
 
----
-
-## Como rodar
-
-1. Clone ou baixe o projeto
-2. Abra `index.html` no seu navegador preferido (Chrome, Firefox, Edge)
-3. Cole seu texto na área indicada
-4. Clique no botão “Extrair Palavras” e veja o resultado em segundos!
+1. Abra `index.html` no navegador.
+2. Cole ou digite um texto.
+3. Clique em **Detectar Palavras-Chave**.
+4. Veja o top 10 de palavras mais frequentes!
 
 ---
-
-## Estrutura dos arquivos
-
-- `index.html` — página principal com a interface do usuário
-- `styles/main.css` — estilos modernos e responsivos
-- `scripts/filtroPalavras.js` — lista das palavras a ignorar na análise
-- `scripts/extrator.js` — lógica para extrair e exibir palavras-chave
-
----
-
-## Dica de uso
-
-Para garantir melhor resultado, utilize textos com pelo menos 50 palavras e evite usar apenas frases muito curtas.
-
----
-
-Feito por [João Victor Santos Magro].
-
-
+Feito por João.
