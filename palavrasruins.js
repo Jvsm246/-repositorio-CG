@@ -1,4 +1,3 @@
-
 export const IGNORADAS = new Set([
   "que", "para", "com", "não", "uma", "por", "mais", "dos", "como", "mas",
   "foi", "ele", "das", "tem", "seu", "sua", "ser", "quando", "muito", "está",

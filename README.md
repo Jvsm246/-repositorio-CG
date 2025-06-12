@@ -1,24 +1,19 @@
-Html
+# Extrator de Palavras-Chave 🧠
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Detector de Palavras Relevantes</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <main class="interface">
-    <h1>Detector de Palavras Relevantes</h1>
+Um projeto simples que analisa um texto e extrai as 10 palavras mais relevantes, ignorando as palavras comuns do português.
 
-    <textarea id="campo-texto" placeholder="Cole ou digite seu texto aqui..."></textarea>
+## 🔧 Funcionalidades
 
-    <button id="botao-extrair">Analisar</button>
+- Interface leve e responsiva
+- Design com tema escuro e destaque em rosa
+- Filtra palavras irrelevantes automaticamente
+- Código modular com JavaScript moderno
 
-    <section id="saida-resultado"></section>
-  </main>
+## 🚀 Como usar
 
-  <script type="module" src="script.js"></script>
-</body>
-</html>
+1. Abra o `index.html` em qualquer navegador moderno.
+2. Cole ou digite o texto no campo.
+3. Clique em **Analisar** para ver as palavras mais importantes.
+
+## 📁 Estrutura
+
