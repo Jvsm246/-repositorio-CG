@@ -1,4 +1,5 @@
-export const IGNORADAS = new Set([
+// Lista customizada de palavras irrelevantes para filtro
+export const palavrasIgnoradas = new Set([
   "que", "para", "com", "não", "uma", "por", "mais", "dos", "como", "mas",
   "foi", "ele", "das", "tem", "seu", "sua", "ser", "quando", "muito", "está",
   "também", "pelo", "pela", "até", "isso", "ela", "entre", "era", "depois",
