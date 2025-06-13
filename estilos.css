@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root {
+  --cor-primaria: #1e88e5;
+  --cor-secundaria: #64b5f6;
+  --fundo: #f9fafb;
+  --texto: #1f2937;
+  --texto-secundario: #6b7280;
+  --branco: #ffffff;
+  --cinza-borda: #e5e7eb;
+  --sombra: rgba(30, 136, 229, 0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: var(--fundo);
+  color: var(--texto);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.navbar {
+  background-color: var(--cor-primaria);
+  padding: 1rem 2rem;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px var(--sombra);
+}
+
+.container {
+  flex: 1;
+  max-width: 800px;
+  margin: 3rem auto;
+  background-color: var(--branco);
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 8px 20px var(--sombra);
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  color: var(--cor-primaria);
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+header p {
+  color: var(--texto-secundario);
+  font-size: 1rem;
+}
+
+textarea {
+  width: 100%;
+  min-height: 180px;
+  border: 1px solid var(--cinza-borda);
+  border-radius: 10px;
+  padding: 1rem;
+  font-size: 1rem;
+  color: var(--texto);
+  background-color: #f3f4f6;
+  resize: vertical;
+  transition: 0.3s;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 3px rgba(100, 181, 246, 0.3);
+}
+
+button {
+  margin: 1.5rem auto 0;
+  display: block;
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  background-color: var(--cor-primaria);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background-color: #1565c0;
+}
+
+.output {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+}
+
+.output span {
+  background-color: var(--cor-secundaria);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(100, 181, 246, 0.3);
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: var(--texto-secundario);
+  background-color: #f1f5f9;
+  border-top: 1px solid #e5e7eb;
+}
