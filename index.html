@@ -3,137 +3,134 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Detector de Termos Relevantes</title>
+<title>Analisador de Palavras-Chave</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
   :root {
-    --cor-principal: #D6336C;
-    --fundo: #121212;
-    --texto-claro: #EAEAEA;
-    --sombra: rgba(214, 51, 108, 0.5);
+    --cor-primaria: #2C7A7B;
+    --cor-secundaria: #38B2AC;
+    --fundo-principal: #F0F4F8;
+    --fundo-box: #FFFFFF;
+    --texto-principal: #1A202C;
+    --texto-secundario: #4A5568;
+    --sombra-suave: rgba(44, 122, 123, 0.2);
   }
 
   * {
-    margin: 0; padding: 0; box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
   }
 
   body {
-    background: var(--fundo);
-    color: var(--texto-claro);
+    background-color: var(--fundo-principal);
+    color: var(--texto-principal);
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    padding: 1.5rem;
+    padding: 2rem;
   }
 
-  .app {
-    background-color: #1E1E1E;
-    border-radius: 16px;
+  .container {
+    background-color: var(--fundo-box);
+    border-radius: 14px;
     padding: 2rem 2.5rem;
-    max-width: 850px;
+    max-width: 800px;
     width: 100%;
-    box-shadow: 0 0 20px var(--sombra);
+    box-shadow: 0 8px 20px var(--sombra-suave);
     display: flex;
     flex-direction: column;
-    gap: 1.6rem;
-  }
-
-  header {
-    text-align: center;
-    margin-bottom: 1rem;
+    gap: 1.5rem;
   }
 
   header h2 {
-    color: var(--cor-principal);
-    font-weight: 600;
-    font-size: 2.4rem;
-    letter-spacing: 1.5px;
+    font-size: 2rem;
+    color: var(--cor-primaria);
+    text-align: center;
     text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
   textarea {
     width: 100%;
-    min-height: 180px;
-    background-color: #292929;
-    border: none;
-    border-radius: 12px;
-    padding: 1rem 1.2rem;
-    font-size: 1.25rem;
-    color: var(--texto-claro);
+    min-height: 160px;
+    padding: 1rem;
+    font-size: 1.1rem;
+    border: 2px solid #CBD5E0;
+    border-radius: 10px;
+    background-color: #F7FAFC;
     resize: vertical;
-    transition: box-shadow 0.3s ease;
+    color: var(--texto-principal);
+    transition: border 0.3s ease;
   }
 
   textarea:focus {
     outline: none;
-    box-shadow: 0 0 8px var(--cor-principal);
+    border-color: var(--cor-secundaria);
+    box-shadow: 0 0 8px var(--sombra-suave);
   }
 
   button {
-    width: 160px;
+    width: 180px;
     align-self: center;
-    padding: 0.85rem 0;
-    background-color: var(--cor-principal);
-    color: #111;
-    font-size: 1.3rem;
-    font-weight: 700;
-    border-radius: 10px;
+    padding: 0.9rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
     border: none;
+    border-radius: 8px;
     cursor: pointer;
-    box-shadow: 0 5px 10px var(--sombra);
-    transition: background-color 0.25s ease;
+    transition: opacity 0.3s ease;
   }
 
   button:hover {
-    background-color: #b92c5a;
+    opacity: 0.85;
   }
 
   .output {
-    margin-top: 1.5rem;
-    min-height: 56px;
-    font-size: 1.5rem;
-    font-weight: 600;
+    margin-top: 1rem;
     text-align: center;
-    color: var(--cor-principal);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--cor-primaria);
     word-break: break-word;
   }
 
   @media (max-width: 600px) {
-    .app {
-      padding: 1.5rem 1.5rem;
+    .container {
+      padding: 1.5rem;
     }
     header h2 {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
     }
     textarea {
-      font-size: 1.1rem;
-      min-height: 140px;
+      font-size: 1rem;
     }
     button {
-      width: 140px;
-      font-size: 1.1rem;
+      width: 160px;
+      font-size: 1rem;
     }
     .output {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
     }
   }
 </style>
 </head>
 <body>
-  <section class="app">
+  <section class="container">
     <header>
-      <h2>Detector de Termos Relevantes</h2>
+      <h2>Analisador de Palavras-Chave</h2>
     </header>
-    <textarea id="inputTexto" placeholder="Cole ou digite seu conteúdo aqui..."></textarea>
-    <button id="btnExtrair">Extrair Termos</button>
+    <textarea id="inputTexto" placeholder="Digite ou cole seu texto aqui..."></textarea>
+    <button id="btnExtrair">Analisar Texto</button>
     <div class="output" id="resultadoTermos"></div>
   </section>
 
   <script>
-    // Palavras que não interessam para o resultado
     const palavrasBanidas = new Set([
       "que", "para", "com", "não", "uma", "por", "mais", "dos", "como", "mas",
       "foi", "ele", "das", "tem", "seu", "sua", "ser", "quando", "muito", "está",
@@ -151,39 +148,30 @@
       "apenas", "desde", "uma vez", "segundo", "junto"
     ]);
 
-    // Pegando elementos da página
     const areaTexto = document.getElementById('inputTexto');
     const botao = document.getElementById('btnExtrair');
     const resultado = document.getElementById('resultadoTermos');
 
     botao.addEventListener('click', () => {
       const textoOriginal = areaTexto.value.trim();
-
       if (!textoOriginal) {
-        resultado.textContent = "Por favor, digite algum texto para análise.";
+        resultado.textContent = "Insira um texto para análise.";
         return;
       }
 
       const termosExtraidos = extrairTermosPrincipais(textoOriginal);
-      resultado.textContent = termosExtraidos.length > 0 ? termosExtraidos.join(' · ') : "Nenhum termo relevante encontrado.";
+      resultado.textContent = termosExtraidos.length > 0 
+        ? termosExtraidos.join(' · ') 
+        : "Nenhum termo relevante encontrado.";
     });
 
-    // Função que extrai as palavras mais frequentes ignorando as palavras banidas
     function extrairTermosPrincipais(texto) {
-      // Regex para pegar palavras com letras unicode
       const palavras = texto.match(/\b\p{L}+\b/gu)?.map(p => p.toLowerCase()) || [];
-
-      // Filtra removendo as palavras banidas e palavras curtas (<=2 letras)
       const palavrasFiltradas = palavras.filter(p => !palavrasBanidas.has(p) && p.length > 2);
-
-      // Conta frequência das palavras filtradas
       const frequencias = contarFrequencias(palavrasFiltradas);
-
-      // Ordena palavras por frequência decrescente e retorna só as 10 principais
       return ordenarPorFrequencia(frequencias).slice(0, 10);
     }
 
-    // Função que conta quantas vezes cada palavra aparece
     function contarFrequencias(listaPalavras) {
       return listaPalavras.reduce((mapa, palavra) => {
         mapa[palavra] = (mapa[palavra] || 0) + 1;
@@ -191,7 +179,6 @@
       }, {});
     }
 
-    // Ordena o objeto de frequência e retorna array só com as palavras ordenadas
     function ordenarPorFrequencia(freqMap) {
       return Object.entries(freqMap)
         .sort((a, b) => b[1] - a[1])
