@@ -2,33 +2,209 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Analisador de Palavras-Chave</title>
-  <link rel="stylesheet" href="estilos.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cor-primaria: #2c7a7b;
+      --cor-secundaria: #38b2ac;
+      --fundo-principal: #f0f4f8;
+      --fundo-box: #ffffff;
+      --texto-principal: #1a202c;
+      --cinza-claro: #cbd5e0;
+      --badge-bg: #e6fffa;
+      --sombra: 0 8px 20px rgba(44, 122, 123, 0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: var(--fundo-principal);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 2rem;
+    }
+
+    .container {
+      background: var(--fundo-box);
+      max-width: 800px;
+      width: 100%;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: var(--sombra);
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+
+    header h2 {
+      font-size: 2.2rem;
+      text-align: center;
+      color: var(--cor-primaria);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 160px;
+      padding: 1rem;
+      font-size: 1.1rem;
+      border: 2px solid var(--cinza-claro);
+      border-radius: 10px;
+      background: #f7fafc;
+      color: var(--texto-principal);
+      resize: vertical;
+      transition: border 0.3s ease;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--cor-secundaria);
+      box-shadow: 0 0 8px rgba(56, 178, 172, 0.3);
+    }
+
+    button {
+      align-self: center;
+      padding: 0.85rem 1.5rem;
+      background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    button:hover {
+      opacity: 0.9;
+      transform: scale(1.02);
+    }
+
+    .output {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-top: 1rem;
+      min-height: 50px;
+    }
+
+    .output span {
+      background: var(--badge-bg);
+      color: var(--cor-primaria);
+      padding: 0.5rem 0.9rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+      opacity: 0;
+      animation: fadeIn 0.4s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 1.5rem;
+      }
+
+      header h2 {
+        font-size: 1.6rem;
+      }
+
+      textarea {
+        font-size: 1rem;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      .output span {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <nav class="navbar">
-    <div class="logo">🧠 Analisador Pro</div>
-  </nav>
-
-  <main class="container">
+  <div class="container">
     <header>
-      <h1>Analisador de Palavras-Chave</h1>
-      <p>Descubra rapidamente os termos mais relevantes em qualquer texto.</p>
+      <h2>Analisador de Palavras-Chave</h2>
     </header>
 
-    <textarea id="inputTexto" placeholder="Cole seu conteúdo aqui..."></textarea>
-    <button id="btnExtrair">Analisar</button>
+    <textarea id="inputTexto" placeholder="Digite ou cole seu texto aqui..."></textarea>
+    <button id="btnExtrair">Analisar Texto</button>
     <div class="output" id="resultadoTermos"></div>
-  </main>
+  </div>
 
-  <footer>
-    <p>Desenvolvido por <strong>Você</strong> — 2025</p>
-  </footer>
+  <script>
+    const palavrasBanidas = new Set([
+      "que", "para", "com", "não", "uma", "por", "mais", "dos", "como", "mas",
+      "foi", "ele", "das", "tem", "seu", "sua", "ser", "quando", "muito", "está",
+      "também", "pelo", "pela", "até", "isso", "ela", "entre", "era", "depois",
+      "sem", "mesmo", "aos", "ter", "seus", "quem", "nas", "esse", "eles", "estão",
+      "você", "tinha", "foram", "essa", "num", "nem", "suas", "meu", "minha", "têm",
+      "numa", "pelos", "elas", "havia", "seja", "qual", "será", "nós", "tenho", "lhe",
+      "deles", "essas", "esses", "pelas", "este", "fosse", "dele", "vocês", "vos",
+      "lhes", "meus", "minhas", "teu", "tua", "teus", "tuas", "nosso", "nossa",
+      "nossos", "nossas", "dela", "delas", "esta", "estes", "estas", "aquele",
+      "aquela", "aqueles", "aquelas", "isto", "aquilo", "estou", "estamos", "estive",
+      "esteve", "estivemos", "estiveram", "estava", "estávamos", "estavam", "e", "ou",
+      "onde", "embora", "apesar", "porque", "enquanto", "contudo", "entretanto",
+      "portanto", "além", "antes", "todavia", "inclusive", "diante", "sobre", "quanto",
+      "apenas", "desde", "uma vez", "segundo", "junto"
+    ]);
 
-  <script src="script.js"></script>
+    const textarea = document.getElementById('inputTexto');
+    const botao = document.getElementById('btnExtrair');
+    const resultado = document.getElementById('resultadoTermos');
+
+    botao.addEventListener('click', () => {
+      const texto = textarea.value.trim();
+      resultado.innerHTML = "";
+
+      if (!texto) {
+        resultado.innerHTML = "<span style='color:#999'>Insira um texto para análise.</span>";
+        return;
+      }
+
+      const termos = extrairTermosPrincipais(texto);
+      if (termos.length === 0) {
+        resultado.innerHTML = "<span>Nenhum termo relevante encontrado.</span>";
+        return;
+      }
+
+      termos.forEach(palavra => {
+        const span = document.createElement('span');
+        span.textContent = palavra;
+        resultado.appendChild(span);
+      });
+    });
+
+    function extrairTermosPrincipais(texto) {
+      const palavras = texto.match(/\b\p{L}+\b/gu)?.map(p => p.toLowerCase()) || [];
+      const palavrasFiltradas = palavras.filter(p => !palavrasBanidas.has(p) && p.length > 2);
+      const frequencias = palavrasFiltradas.reduce((map, palavra) => {
+        map[palavra] = (map[palavra] || 0) + 1;
+        return map;
+      }, {});
+      return Object.entries(frequencias)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10)
+        .map(entry => entry[0]);
+    }
+  </script>
 </body>
 </html>
