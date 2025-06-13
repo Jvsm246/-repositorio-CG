@@ -44,3 +44,19 @@ botao.addEventListener('click', () => {
 function extrairTermosPrincipais(texto) {
   const palavras = texto.match(/\b\p{L}+\b/gu)?.map(p => p.toLowerCase()) || [];
   const palavrasFiltradas = palavras.filter(p => !palavrasBanidas.has(p) && p.length > 2);
+  const frequencias = contarFrequencias(palavrasFiltradas);
+  return ordenarPorFrequencia(frequencias).slice(0, 10);
+}
+
+function contarFrequencias(listaPalavras) {
+  return listaPalavras.reduce((mapa, palavra) => {
+    mapa[palavra] = (mapa[palavra] || 0) + 1;
+    return mapa;
+  }, {});
+}
+
+function ordenarPorFrequencia(freqMap) {
+  return Object.entries(freqMap)
+    .sort((a, b) => b[1] - a[1])
+    .map(item => item[0]);
+}
