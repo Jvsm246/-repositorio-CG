@@ -1,10 +1,10 @@
 :root {
-  --cor-primaria: #4ade80; /* verde claro */
-  --cor-secundaria: #22c55e; /* verde vibrante */
-  --fundo-principal: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  --fundo-box: #1e293b; /* azul escuro */
-  --texto-principal: #e0e7ff; /* quase branco */
-  --badge-bg: #22c55e22; /* verde transparente para badges */
+  --cor-primaria: #4ade80; /* Verde Claro */
+  --cor-secundaria: #22c55e; /* Verde Vibrante */
+  --fundo-principal: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Fundo escuro gradiente */
+  --fundo-box: #1e293b; /* Azul escuro */
+  --texto-principal: #e0e7ff; /* Quase Branco */
+  --badge-bg: rgba(34, 197, 94, 0.22); /* Verde transparente para badges */
   --sombra: 0 12px 24px rgba(0, 0, 0, 0.4);
   --borda-radius: 16px;
   --fonte-principal: 'Poppins', sans-serif;
@@ -25,6 +25,7 @@ body {
   background: var(--fundo-principal);
   padding: 1rem;
   color: var(--texto-principal);
+  overflow: hidden;
 }
 
 .container {
@@ -38,6 +39,13 @@ body {
   flex-direction: column;
   gap: 2rem;
   transition: transform 0.3s ease;
+  animation: floatUp 2s ease-in-out infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
 }
 
 .container:hover {
@@ -52,8 +60,18 @@ header h2 {
   color: var(--cor-primaria);
   text-transform: uppercase;
   letter-spacing: 3px;
-  text-shadow: 0 0 8px var(--cor-primaria);
+  text-shadow: 0 0 8px var(--cor-primaria), 0 0 20px var(--cor-secundaria);
   user-select: none;
+  animation: neonGlow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neonGlow {
+  0% {
+    text-shadow: 0 0 8px var(--cor-primaria), 0 0 20px var(--cor-secundaria);
+  }
+  100% {
+    text-shadow: 0 0 18px var(--cor-primaria), 0 0 30px var(--cor-secundaria);
+  }
 }
 
 textarea {
@@ -63,10 +81,10 @@ textarea {
   font-size: 1.15rem;
   border-radius: 12px;
   border: 2px solid transparent;
-  background: #334155; /* tom escuro para textarea */
+  background: #334155;
   color: var(--texto-principal);
   resize: vertical;
-  box-shadow: inset 0 0 12px #00000088;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.6);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   font-weight: 500;
   line-height: 1.5;
@@ -115,7 +133,7 @@ button:hover {
   padding: 0.5rem;
   border-radius: 12px;
   background: #273449;
-  box-shadow: inset 0 0 14px #000000aa;
+  box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.8);
 }
 
 .output span {
@@ -142,25 +160,29 @@ button:hover {
   .container {
     padding: 2rem 1.5rem;
   }
+
   header h2 {
     font-size: 2rem;
     letter-spacing: 2px;
   }
+
   textarea {
     min-height: 140px;
     font-size: 1rem;
   }
+
   button {
     width: 100%;
     font-size: 1.1rem;
   }
+
   .output {
     min-height: 50px;
     padding: 0.4rem;
   }
+
   .output span {
     font-size: 0.95rem;
     padding: 0.4rem 0.9rem;
   }
 }
-
