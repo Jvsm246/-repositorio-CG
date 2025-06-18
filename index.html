@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Analisador de Palavras-Chave</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="stilo.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisador de Texto</title>
+    <link rel="stylesheet" href="css/estilo.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h2>Analisador de Palavras-Chave</h2>
-    </header>
-    <textarea id="inputTexto" placeholder="Digite ou cole seu texto aqui..."></textarea>
-    <button id="btnExtrair">Analisar Texto</button>
-    <div class="output" id="resultadoTermos"></div>
-  </div>
-  <script src="script.js"></script>
+    <main class="caixa">
+        <h2>Analisador de Texto</h2>
+        <textarea id="texto" placeholder="Cole seu texto aqui..."></textarea>
+        <button onclick="analisarTexto()">Analisar</button>
+        <section id="resultado"></section>
+    </main>
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>
