@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analisador de Texto</title>
-    <link rel="stylesheet" href="css/estilo.css">
+    <title>Extrator de Palavras-Chave</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <main class="caixa">
-        <h2>Analisador de Texto</h2>
-        <textarea id="texto" placeholder="Cole seu texto aqui..."></textarea>
-        <button onclick="analisarTexto()">Analisar</button>
-        <section id="resultado"></section>
-    </main>
-    <script type="module" src="js/app.js"></script>
+    <div class="container">
+        <h1>Extrator de palavras-chave</h1>
+        <textarea id="entrada-de-texto" placeholder="Digite ou cole seu texto aqui..."></textarea>
+        <button id="botao-palavrachave">Extrair</button>
+        <div id="resultado-palavrachave"></div>
+    </div>
+    <script type="module" src="js/script.js"></script>
 </body>
+
 </html>
